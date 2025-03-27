@@ -174,6 +174,7 @@ cp %{SOURCE4} %{buildroot}%{_datadir}/appdata/
 %{_libdir}/gstreamer-%{gst_branch}/libgstrsrtsp.so
 %{_libdir}/gstreamer-%{gst_branch}/libgstspeechmatics.so
 %{_libdir}/gstreamer-%{gst_branch}/libgststreamgrouper.so
+%{_libdir}/gstreamer-%{gst_branch}/libgstvvdec.so
 %dir %{_datadir}/appdata
 %{_datadir}/appdata/gstreamer-plugins-rs.appdata.xml
 %{_bindir}/gst-webrtc-signalling-server
