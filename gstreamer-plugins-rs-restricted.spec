@@ -16,7 +16,7 @@
 %endif
 
 Name:           gstreamer-plugins-rs
-Version:        1.26.0
+Version:        1.26.3
 # Make sure that release in restriected is higher than in main
 Release:        100
 Summary:        GStreamer Streaming-Media Framework Plug-Ins
@@ -89,8 +89,39 @@ plugins.
 
 %prep
 %autosetup -n gst-plugins-rs-gstreamer-%{version} -a2 -p1
-#mkdir .cargo
-#cp %{SOURCE3} .cargo/config
+#cargo_prep -v vendor
+mkdir -p .cargo
+cat >> .cargo/config.toml << EOF
+[source.crates-io]
+replace-with = "vendored-sources"
+
+[source."git+https://github.com/gtk-rs/gtk-rs-core?branch=main"]
+git = "https://github.com/gtk-rs/gtk-rs-core"
+branch = "main"
+replace-with = "vendored-sources"
+
+[source."git+https://github.com/gtk-rs/gtk4-rs?branch=main"]
+git = "https://github.com/gtk-rs/gtk4-rs"
+branch = "main"
+replace-with = "vendored-sources"
+
+[source."git+https://github.com/rust-av/ffv1.git?rev=bd9eabfc14c9ad53c37b32279e276619f4390ab8"]
+git = "https://github.com/rust-av/ffv1.git"
+rev = "bd9eabfc14c9ad53c37b32279e276619f4390ab8"
+replace-with = "vendored-sources"
+
+[source."git+https://github.com/rust-av/flavors"]
+git = "https://github.com/rust-av/flavors"
+replace-with = "vendored-sources"
+
+[source."git+https://gitlab.freedesktop.org/gstreamer/gstreamer-rs?branch=main"]
+git = "https://gitlab.freedesktop.org/gstreamer/gstreamer-rs"
+branch = "main"
+replace-with = "vendored-sources"
+
+[source.vendored-sources]
+directory = "vendor"
+EOF
 
 %build
 # Disable csound for now, bring issue upstream
@@ -100,15 +131,15 @@ export RUSTFLAGS="%{build_rustflags}"
 %meson \
 	--default-library=shared \
 	-Ddoc=disabled \
-  -Dwebp=enabled \
+  	-Dwebp=enabled \
 	-Ddav1d=enabled \
-  -Drav1e=enabled \
+  	-Drav1e=enabled \
 	-Dsodium=enabled \
 	-Dcsound=disabled \
 %if !%{build_vvdec} 
  	-Dvvdec=disabled \
 %else
-  -Dvvdec=enabled \
+  	-Dvvdec=enabled \
 %endif
 	-Daws=disabled
 
@@ -170,7 +201,8 @@ cp %{SOURCE4} %{buildroot}%{_datadir}/appdata/
 %{_libdir}/gstreamer-%{gst_branch}/libgstoriginalbuffer.so
 %{_libdir}/gstreamer-%{gst_branch}/libgstquinn.so
 %{_libdir}/gstreamer-%{gst_branch}/libgstrsinter.so
-%{_libdir}/gstreamer-%{gst_branch}/libgstrsrelationmeta.so
+%{_libdir}/gstreamer-%{gst_branch}/libgstelevenlabs.so
+%{_libdir}/gstreamer-%{gst_branch}/libgstrsanalytics.so
 %{_libdir}/gstreamer-%{gst_branch}/libgstrsrtsp.so
 %{_libdir}/gstreamer-%{gst_branch}/libgstspeechmatics.so
 %{_libdir}/gstreamer-%{gst_branch}/libgststreamgrouper.so
