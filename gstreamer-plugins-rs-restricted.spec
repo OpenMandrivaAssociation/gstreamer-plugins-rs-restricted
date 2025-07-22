@@ -16,7 +16,7 @@
 %endif
 
 Name:           gstreamer-plugins-rs
-Version:        1.26.3
+Version:        1.26.4
 # Make sure that release in restriected is higher than in main
 Release:        100
 Summary:        GStreamer Streaming-Media Framework Plug-Ins
@@ -95,14 +95,14 @@ cat >> .cargo/config.toml << EOF
 [source.crates-io]
 replace-with = "vendored-sources"
 
-[source."git+https://github.com/gtk-rs/gtk-rs-core?branch=main"]
+[source."git+https://github.com/gtk-rs/gtk-rs-core?branch=0.21"]
 git = "https://github.com/gtk-rs/gtk-rs-core"
-branch = "main"
+branch = "0.21"
 replace-with = "vendored-sources"
 
-[source."git+https://github.com/gtk-rs/gtk4-rs?branch=main"]
+[source."git+https://github.com/gtk-rs/gtk4-rs?branch=0.10"]
 git = "https://github.com/gtk-rs/gtk4-rs"
-branch = "main"
+branch = "0.10"
 replace-with = "vendored-sources"
 
 [source."git+https://github.com/rust-av/ffv1.git?rev=bd9eabfc14c9ad53c37b32279e276619f4390ab8"]
@@ -114,9 +114,9 @@ replace-with = "vendored-sources"
 git = "https://github.com/rust-av/flavors"
 replace-with = "vendored-sources"
 
-[source."git+https://gitlab.freedesktop.org/gstreamer/gstreamer-rs?branch=main"]
+[source."git+https://gitlab.freedesktop.org/gstreamer/gstreamer-rs?branch=0.24"]
 git = "https://gitlab.freedesktop.org/gstreamer/gstreamer-rs"
-branch = "main"
+branch = "0.24"
 replace-with = "vendored-sources"
 
 [source.vendored-sources]
