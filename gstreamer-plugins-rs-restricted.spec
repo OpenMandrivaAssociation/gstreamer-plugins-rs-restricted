@@ -16,7 +16,7 @@
 %endif
 
 Name:           gstreamer-plugins-rs
-Version:        1.26.4
+Version:        1.26.7
 # Make sure that release in restriected is higher than in main
 Release:        100
 Summary:        GStreamer Streaming-Media Framework Plug-Ins
@@ -70,22 +70,22 @@ plug-ins.
 
 This package provides various plugins written in Rust.
 
-%package devel
-Summary:        GStreamer Streaming-Media Framework Plug-Ins development files
-Group:          Development/Libraries/Other
-Requires:       %{name} = %{version}
+#package devel
+#Summary:        GStreamer Streaming-Media Framework Plug-Ins development files
+#Group:          Development/Libraries/Other
+#Requires:       %{name} = %{version}
 #Requires:       csound-devel
 
-%description devel
-GStreamer is a streaming media framework based on graphs of filters
-that operate on media data. Applications using this library can do
-anything media-related, from real-time sound processing to playing
-videos. Its plug-in-based architecture means that new data types or
-processing capabilities can be added simply by installing new
-plug-ins.
+#description devel
+#GStreamer is a streaming media framework based on graphs of filters
+#that operate on media data. Applications using this library can do
+#anything media-related, from real-time sound processing to playing
+#videos. Its plug-in-based architecture means that new data types or
+#processing capabilities can be added simply by installing new
+#plug-ins.
 
-This package contains the pkgconfig development files for the rust
-plugins.
+#This package contains the pkgconfig development files for the rust
+#plugins.
 
 %prep
 %autosetup -n gst-plugins-rs-gstreamer-%{version} -a2 -p1
@@ -136,6 +136,7 @@ export RUSTFLAGS="%{build_rustflags}"
   	-Drav1e=enabled \
 	-Dsodium=enabled \
 	-Dcsound=disabled \
+	-Dskia=disabled \
 %if !%{build_vvdec} 
  	-Dvvdec=disabled \
 %else
@@ -211,5 +212,5 @@ cp %{SOURCE4} %{buildroot}%{_datadir}/appdata/
 %{_datadir}/appdata/gstreamer-plugins-rs.appdata.xml
 %{_bindir}/gst-webrtc-signalling-server
 
-%files devel
-%{_libdir}/pkgconfig/*.pc
+#files devel
+#{_libdir}/pkgconfig/*.pc
