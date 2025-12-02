@@ -16,7 +16,7 @@
 %endif
 
 Name:           gstreamer-plugins-rs
-Version:        1.26.7
+Version:        1.26.9
 # Make sure that release in restriected is higher than in main
 Release:        100
 Summary:        GStreamer Streaming-Media Framework Plug-Ins
