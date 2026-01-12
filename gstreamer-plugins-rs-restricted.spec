@@ -16,7 +16,7 @@
 %endif
 
 Name:           gstreamer-plugins-rs
-Version:        1.26.9
+Version:        1.26.10
 # Make sure that release in restriected is higher than in main
 Release:        100
 Summary:        GStreamer Streaming-Media Framework Plug-Ins
@@ -37,6 +37,7 @@ BuildRequires:  clang
 #BuildRequires:  csound-devel
 BuildRequires:  llvm
 BuildRequires:  git
+BuildRequires:	make
 BuildRequires:  meson >= 0.60
 BuildRequires:  nasm
 BuildRequires:  pkgconfig
