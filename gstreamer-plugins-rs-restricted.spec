@@ -129,6 +129,9 @@ EOF
 # Disable csound for now, bring issue upstream
 #export CSOUND_LIB_DIR=%%{_libdir}
 export RUSTFLAGS="%{build_rustflags}"
+# as of plugins-rs 1.28.6, rust 1.97.1 and llvm 23.1.0-rc1.
+# Disable LTO because error rustc-LLVM ERROR: expected function definition _RNvCslvstGAdgBpu_7___rustc12___rust_alloc to have an associated value info.
+export RUSTFLAGS="-C lto=off"
 
 %meson \
 	--default-library=shared \
