@@ -149,7 +149,36 @@ export RUSTFLAGS="-C lto=off"
 %endif
 	-Daws=disabled
 
-%meson_build
+# rustc at opt-level=3 with debuginfo was SIGKILLed when cargo used every core.
+mem_kb=$(awk '/MemTotal/ { print $2 }' /proc/meminfo)
+for cg in /sys/fs/cgroup/memory.max /sys/fs/cgroup/memory/memory.limit_in_bytes; do
+	if [ -r "$cg" ]; then
+		max=$(cat "$cg")
+		case $max in
+		max|"") ;;
+		*)
+			ck=$((max / 1024))
+			if [ "$ck" -gt 0 ] && [ "$ck" -lt "$mem_kb" ]; then
+				mem_kb=$ck
+			fi
+			;;
+		esac
+	fi
+done
+jobs=$((mem_kb / 4000000))
+nproc=$(getconf _NPROCESSORS_ONLN)
+if [ "$jobs" -lt 1 ]; then
+	jobs=1
+fi
+if [ "$jobs" -gt "$nproc" ]; then
+	jobs=$nproc
+fi
+if [ "$jobs" -gt 4 ]; then
+	jobs=4
+fi
+echo "Limiting ninja and cargo to ${jobs} jobs (memory ${mem_kb} kB)"
+export CARGO_BUILD_JOBS="$jobs"
+LC_ALL=en_US.UTF-8 meson compile -C build -j"$jobs" --verbose
 
 %install
 export RUSTFLAGS="%{build_rustflags}"
